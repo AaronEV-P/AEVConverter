@@ -1,0 +1,395 @@
+* {
+    -fx-accent-blue: #4f8ef7;
+    -fx-accent-blue-hover: #6ea6ff;
+    -fx-accent-blue-pressed: #3b70cc;
+    -fx-danger-red: #e5484d;
+    -fx-danger-red-hover: #ff6266;
+    -fx-danger-red-pressed: #c93b40;
+    -fx-success-green: #35c48f;
+
+    -fx-bg-root: #1b1d24;
+    -fx-bg-panel: #23262f;
+    -fx-bg-panel-light: #2b2f3a;
+    -fx-border-subtle: #3a3f4d;
+    -fx-text-primary: #e9eaf0;
+    -fx-text-muted: #9aa0b2;
+}
+
+.root {
+    -fx-background-color: -fx-bg-root;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/** ---------- Custom title bar (replace native title bar) Right now not used ---------- 
+.title-bar {
+    -fx-background-color: -fx-bg-panel;
+    -fx-padding: 6 8 6 14;
+    -fx-alignment: center-left;
+    -fx-spacing: 8;
+    -fx-border-color: transparent transparent -fx-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.title-bar-label {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+
+
+Combined with ".button" (the default class applied to every Button) to increase
+specificity over the generic .button / .button rules, regardless of
+the order in which they appear in the stylesheet.
+.button.title-bar-btn {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-border-color: transparent;
+    -fx-text-fill: -fx-text-muted;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-min-width: 34px;
+    -fx-min-height: 26px;
+    -fx-max-width: 34px;
+    -fx-max-height: 26px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+.button.title-bar-btn:hover {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-text-fill: -fx-text-primary;
+}
+.button.title-bar-btn-close:hover {
+    -fx-background-color: -fx-danger-red;
+    -fx-text-fill: white;
+}
+**/
+
+
+/* ---------- Content title ---------- */
+.title-label {
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 0 0 6 0;
+}
+
+/* ---------- Menu bar ---------- */
+.menu-bar {
+    -fx-background-color: -fx-bg-panel;
+    -fx-border-color: transparent transparent -fx-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 2 4 2 4;
+}
+
+.menu-bar > .container > .menu-button > .label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.menu-bar > .container > .menu-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-padding: 4 10 4 10;
+}
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: -fx-bg-panel-light;
+}
+
+.menu-bar .menu > .arrow,
+.context-menu .menu > .arrow {
+    -fx-background-color: -fx-text-muted;
+}
+
+.context-menu {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 4;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-padding: 6 14 6 14;
+}
+.menu-item .label {
+    -fx-text-fill: -fx-text-primary;
+}
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: -fx-accent-blue;
+}
+.menu-item:hover .label,
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
+.menu-item:disabled .label {
+    -fx-text-fill: -fx-text-muted;
+    -fx-opacity: 0.6;
+}
+
+.context-menu .separator .line {
+    -fx-border-color: -fx-border-subtle transparent transparent transparent;
+    -fx-border-width: 1px;
+}
+
+/* ---------- General labels ---------- */
+.label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.subtitle-label {
+    -fx-text-fill: -fx-text-muted;
+    -fx-font-size: 12px;
+}
+
+/* Image load status */
+.status-label {
+    -fx-font-weight: bold;
+    -fx-padding: 2 0 2 0;
+}
+
+.status-error {
+    -fx-text-fill: -fx-danger-red;
+}
+
+.status-ok {
+    -fx-text-fill: -fx-success-green;
+}
+
+/* ---------- ComboBox ---------- */
+.combo-box {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-background-radius: 6;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 6;
+    -fx-mark-color: -fx-text-primary;
+    -fx-text-fill: -fx-text-primary;
+}
+.combo-box:focused {
+    -fx-border-color: -fx-accent-blue;
+}
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-primary;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-border-color: -fx-border-subtle;
+}
+.combo-box-popup .list-cell:hover,
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: -fx-accent-blue;
+    -fx-text-fill: white;
+}
+
+/* ---------- TextField ---------- */
+.text-field {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-background-radius: 6;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 6;
+    -fx-text-fill: -fx-text-primary;
+    -fx-prompt-text-fill: -fx-text-muted;
+    -fx-highlight-fill: -fx-accent-blue;
+    -fx-highlight-text-fill: white;
+    -fx-padding: 6 10 6 10;
+}
+.text-field:focused {
+    -fx-border-color: -fx-accent-blue;
+}
+.text-field:disabled {
+    -fx-opacity: 0.5;
+}
+
+/* ---------- CheckBox ---------- */
+.check-box {
+    -fx-text-fill: -fx-text-primary;
+}
+.check-box .box {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-background-radius: 4;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 4;
+    -fx-padding: 2px;
+}
+.check-box:hover .box {
+    -fx-border-color: -fx-accent-blue;
+}
+.check-box:selected .box {
+    -fx-background-color: -fx-accent-blue;
+    -fx-border-color: -fx-accent-blue;
+}
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+.check-box:disabled {
+    -fx-opacity: 0.5;
+}
+
+/* ---------- Base buttons ---------- */
+.button {
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18 8 18;
+    -fx-text-fill: white;
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 6;
+}
+.button:hover {
+    -fx-background-color: derive(-fx-bg-panel-light, 15%);
+}
+.button:pressed {
+    -fx-background-color: derive(-fx-bg-panel-light, -10%);
+}
+.button:disabled {
+    -fx-opacity: 0.45;
+    -fx-cursor: default;
+}
+
+/* Primary action (Load / Convert / Resize) */
+.button-primary {
+    -fx-background-color: -fx-accent-blue;
+    -fx-border-color: transparent;
+}
+.button-primary:hover {
+    -fx-background-color: -fx-accent-blue-hover;
+}
+.button-primary:pressed {
+    -fx-background-color: -fx-accent-blue-pressed;
+}
+
+/* Secondary action (Clear list) */
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-border-subtle;
+    -fx-text-fill: -fx-text-muted;
+}
+.button-secondary:hover {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* Destructive action (Cancel conversion) */
+.button-danger {
+    -fx-background-color: -fx-danger-red;
+    -fx-border-color: transparent;
+}
+.button-danger:hover {
+    -fx-background-color: -fx-danger-red-hover;
+}
+.button-danger:pressed {
+    -fx-background-color: -fx-danger-red-pressed;
+}
+
+/* Circular "X" button to remove an image from the list */
+.btn-remove-image {
+    -fx-background-color: -fx-danger-red;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-min-width: 22px;
+    -fx-min-height: 22px;
+    -fx-max-width: 22px;
+    -fx-max-height: 22px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+.btn-remove-image:hover {
+    -fx-background-color: -fx-danger-red-hover;
+}
+.btn-remove-image:pressed {
+    -fx-background-color: -fx-danger-red-pressed;
+}
+
+/* ---------- Images area ---------- */
+.image-scroll {
+    -fx-background-color: -fx-bg-root;
+    -fx-background: -fx-bg-root;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.image-scroll > .viewport {
+    -fx-background-color: -fx-bg-root;
+}
+.image-scroll .scroll-bar:vertical,
+.image-scroll .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+.image-scroll .scroll-bar .thumb {
+    -fx-background-color: -fx-border-subtle;
+    -fx-background-radius: 6;
+}
+
+.image-flow-pane {
+    -fx-background-color: -fx-bg-root;
+    -fx-padding: 8;
+}
+
+.image-scroll.drag-over {
+    -fx-border-color: #4f8ef7;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+}
+
+.image-scroll.drag-over .viewport {
+    -fx-background-color: rgba(79, 142, 247, 0.10);
+}
+
+/* Thumbnail card / preview */
+.thumbnail-card {
+    -fx-background-color: -fx-bg-panel;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* ---------- Progress bar ---------- */
+.progress-bar > .bar {
+    -fx-background-color: -fx-accent-blue;
+    -fx-background-radius: 6;
+    -fx-padding: 5px;
+}
+.progress-bar > .track {
+    -fx-background-color: -fx-bg-panel-light;
+    -fx-background-radius: 6;
+}
+
+/* ---------- Progress dialog ---------- */
+.dialog-root {
+    -fx-background-color: -fx-bg-root;
+}
+
+/* ---------- Alerts ---------- */
+.alert-dark.dialog-pane {
+    -fx-background-color: -fx-bg-panel;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-width: 1px;
+}
+
+.alert-dark.dialog-pane > .header-panel {
+    -fx-background-color: -fx-bg-panel;
+}
+
+.alert-dark.dialog-pane > .header-panel > .label {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.alert-dark.dialog-pane > .content.label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.alert-dark.dialog-pane > .button-bar {
+    -fx-background-color: -fx-bg-panel;
+}

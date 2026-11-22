@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="16.0"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.aaronev.aevconverter.ui.resize.ResizeImageController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER" spacing="12.0">
+            <children>
+                <Button fx:id="loadImageButton"
+                        mnemonicParsing="false"
+                        onAction="#loadImage"
+                        styleClass="button-primary"
+                        text="Cargar imagen" />
+                <Label fx:id="statusLabel"
+                       styleClass="status-label, status-error"
+                       text="Ninguna imagen cargada" />
+            </children>
+        </HBox>
+
+        <!-- This container uses the remaining vertical space and keeps the preview within its bounds. -->
+        <StackPane fx:id="previewContainer"
+                   minHeight="150.0"
+                   minWidth="150.0"
+                   styleClass="thumbnail-card"
+                   VBox.vgrow="ALWAYS">
+            <children>
+                <ImageView fx:id="imagePreview" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
+
+        <Label fx:id="originalDimensionsLabel"
+               styleClass="subtitle-label"
+               text="Dimensiones originales: —" />
+
+        <HBox alignment="CENTER" spacing="24.0">
+            <children>
+                <VBox alignment="CENTER_LEFT" spacing="4.0">
+                    <children>
+                        <Label text="Ancho (px):" />
+                        <TextField fx:id="widthField" disable="true" prefWidth="100.0" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" spacing="4.0">
+                    <children>
+                        <Label text="Alto (px):" />
+                        <TextField fx:id="heightField" disable="true" prefWidth="100.0" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <CheckBox fx:id="keepAspectRatioCheckBox"
+                  mnemonicParsing="false"
+                  selected="true"
+                  text="Mantener relación de aspecto" />
+
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Button fx:id="resizeButton"
+                        disable="true"
+                        mnemonicParsing="false"
+                        onAction="#resizeImage"
+                        styleClass="button-primary"
+                        text="Redimensionar" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

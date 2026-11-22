@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- La hoja de estilos se referencia con ruta relativa a este archivo:
+     ui/shell/ -> ../../css/styles.css. Las vistas hijas la heredan de este nodo raíz. -->
+<VBox fx:id="rootContainer" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" spacing="0.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aaronev.aevconverter.ui.shell.MainShellController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="Imagen">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showConvertFormat" text="Convertir formato" />
+                        <MenuItem mnemonicParsing="false" onAction="#showResizeImage" text="Redimensionar imagen" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <!-- Aquí se inserta la vista de la función elegida en el menú -->
+        <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>
