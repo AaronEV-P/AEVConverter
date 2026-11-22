@@ -1,0 +1,84 @@
+# ==========================================
+# Java
+# ==========================================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Java virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+
+# ==========================================
+# Maven
+# ==========================================
+
+# Build output
+/target/
+
+
+# ==========================================
+# NetBeans
+# ==========================================
+
+# Private NetBeans project settings
+/nbproject/private/
+
+# Personal NetBeans configuration
+/nbproject/private/
+
+
+# ==========================================
+# Other IDEs
+# ==========================================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+
+
+# ==========================================
+# Operating System
+# ==========================================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+
+# ==========================================
+# Application
+# ==========================================
+
+# Application log directory
+/logs/
+
+
+# ==========================================
+# Package Files
+# ==========================================
+
+*.war
+*.nar
+*.ear
+
+# Generated distribution archives
+*.zip
+*.tar.gz
+*.rar

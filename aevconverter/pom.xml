@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.aaronev</groupId>
+    <artifactId>aevconverter</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.release>25</java.release>
+        <javafx.version>27.0.1</javafx.version>
+
+        <main.class>com.aaronev.aevconverter.App</main.class>
+        <launcher.class>com.aaronev.aevconverter.AppLauncher</launcher.class>
+
+        <!-- Installer metadata (jpackage). The app-version must be numeric: 1.0.0, not 1.0-SNAPSHOT -->
+        <app.name>AEVConverter</app.name>
+        <app.version>0.1.0</app.version>
+
+        <!-- By default, generates a runnable application image (no additional tools required).
+      To generate an installer, override this property from the command line:
+        Linux   (Mint/Ubuntu/Debian): mvn clean package -Dapp.package.type=deb
+        Windows (requires WiX 3.x):   mvn clean package -Dapp.package.type=exe
+        macOS:                        mvn clean package -Dapp.package.type=dmg -->
+        <app.package.type>app-image</app.package.type>
+
+        <!-- Intermediate directory used by jpackage (contains only the final JAR, not the rest of target/) -->
+        <jpackage.input>${project.build.directory}/jpackage-input</jpackage.input>
+        
+        <!-- Set to true when packaging an installer instead of an app image -->
+        <skip.root.license.copy>false</skip.root.license.copy>
+    </properties>
+
+    <!-- Each profile is activated automatically according to the operating system running Maven:
+    sets the JavaFX classifier (including its native libraries) and the jpackage icon. -->
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+                <app.icon>src/main/resources/com/aaronev/aevconverter/icons/icon_logo.ico</app.icon>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+                <app.icon>src/main/resources/com/aaronev/aevconverter/icons/icon_logo.png</app.icon>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+
+        <!-- WEBP reading and writing support for ImageIO -->
+        <dependency>
+            <groupId>org.sejda.imageio</groupId>
+            <artifactId>webp-imageio</artifactId>
+            <version>0.1.6</version>
+        </dependency>
+        
+        <!-- BMP and ICO reading and writing support for ImageIO -->
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-bmp</artifactId>
+            <version>3.15.3</version>
+        </dependency>
+    </dependencies>
+    
+    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>${java.release}</release>
+                </configuration>
+            </plugin>
+
+            <!-- Run the application with mvn javafx:run -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Executable JAR containing all dependencies (this is what jpackage packages).
+            Starts through AppLauncher, not App: see the comment in AppLauncher.java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Explicit output name: otherwise the plugin generates "...-shaded.jar",
+                            and jpackage cannot find the file specified by the main-jar parameter -->
+                            <outputFile>${jpackage.input}/${project.build.finalName}.jar</outputFile>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${launcher.class}</mainClass>
+                                </transformer>
+                                <!-- Merge META-INF/services files from dependencies: essential for
+                                ImageIO to discover the WEBP plugin inside the single JAR -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- jpackage: generates app-image / deb / exe / dmg according to -Dapp.package.type -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>jpackage</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/jpackage</executable>
+                            <arguments>
+                                <argument>--type</argument>
+                                <argument>${app.package.type}</argument>
+                                <argument>--input</argument>
+                                <argument>${jpackage.input}</argument>
+                                <argument>--main-jar</argument>
+                                <argument>${project.build.finalName}.jar</argument>
+                                <argument>--main-class</argument>
+                                <argument>${launcher.class}</argument>
+                                <argument>--name</argument>
+                                <argument>${app.name}</argument>
+                                <argument>--app-version</argument>
+                                <argument>${app.version}</argument>
+                                <argument>--icon</argument>
+                                <argument>${app.icon}</argument>
+                                <argument>--java-options</argument>
+                                <argument>--enable-native-access=ALL-UNNAMED</argument>
+                                <argument>--dest</argument>
+                                <argument>${project.build.directory}/dist</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Copy third-party licenses into the packaged application -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+
+                <executions>
+                    <!-- Copy the license into jpackage's input directory before packaging -->
+                    <execution>
+                        <id>copy-license-into-jpackage-input</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${jpackage.input}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/resources</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>THIRD-PARTY-LICENSES.txt</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                    <!-- Copy the license next to the generated application image -->
+                    <execution>
+                        <id>copy-license-next-to-app-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.root.license.copy}</skip>
+                            <outputDirectory>${project.build.directory}/dist/${app.name}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/resources</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>THIRD-PARTY-LICENSES.txt</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
