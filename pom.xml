@@ -6,7 +6,7 @@
 
     <groupId>com.aaronev</groupId>
     <artifactId>aevconverter</artifactId>
-    <version>0.1.0</version>
+    <version>0.0.9</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -19,7 +19,7 @@
 
         <!-- Installer metadata (jpackage). The app-version must be numeric: 1.0.0, not 1.0-SNAPSHOT -->
         <app.name>AEVConverter</app.name>
-        <app.version>0.1.0</app.version>
+        <app.version>${project.version}</app.version>
 
         <!-- By default, generates a runnable application image (no additional tools required).
       To generate an installer, override this property from the command line:
@@ -110,11 +110,34 @@
             <artifactId>imageio-tga</artifactId>
             <version>3.15.0</version>
         </dependency>
+        <!-- JSON parsing for GitHub update checks -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.15.0</version>
+        </dependency>
     </dependencies>
     
     
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>app.properties</exclude>
+                </excludes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>app.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
