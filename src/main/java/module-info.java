@@ -6,6 +6,9 @@ module com.mycompany.aevconverter {
     requires javafx.graphicsEmpty;
     requires javafx.swing;
     requires com.twelvemonkeys.imageio.bmp;
+    requires java.net.http;
+    requires java.prefs;
+    requires com.google.gson;
 
     opens com.aaronev.aevconverter to javafx.fxml;
     opens com.aaronev.aevconverter.ui.shell to javafx.fxml;

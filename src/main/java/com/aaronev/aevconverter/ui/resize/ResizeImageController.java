@@ -14,6 +14,9 @@ import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.ResourceBundle;
@@ -175,13 +178,21 @@ public class ResizeImageController implements Initializable {
     // -------------------- Image loading --------------------
     @FXML
     private void loadImage() {
+        List<String> imagePatterns = new ArrayList<>();
+
+        for (ImageFormat format : ImageFormat.values()) {
+            if (format != ImageFormat.ICO && format != ImageFormat.TGA) {
+                Collections.addAll(imagePatterns, format.getFilterPatterns());
+            }
+        }
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar imagen");
 
         FileChooser.ExtensionFilter imageFilter
                 = new FileChooser.ExtensionFilter(
-                        "JPG/JPEG, WEBP, PNG",
-                        "*.jpg", "*.jpeg", "*.webp", "*.png");
+                        "Todas las imágenes",
+                        imagePatterns.toArray(String[]::new));
 
         fileChooser.getExtensionFilters().setAll(imageFilter);
         fileChooser.setSelectedExtensionFilter(imageFilter);
@@ -191,19 +202,6 @@ public class ResizeImageController implements Initializable {
         Optional.ofNullable(fileChooser.showOpenDialog(owner))
                 .ifPresent(this::loadSelectedImage);
     }
-    
-//    
-//    private static List<String> getAllSupportedFilterPatterns() {
-//        List<String> patterns = new ArrayList<>();
-//
-//        for (ImageFormat format : ImageFormat.values()) {
-//            if (format != ImageFormat.ICO) {
-//                patterns.addAll(Arrays.asList(format.getFilterPatterns()));
-//            }
-//        }
-//
-//        return patterns.stream().distinct().toList();
-//    }
 
     private void loadSelectedImage(File file) {
         Optional<ImageFormat> detectedFormat

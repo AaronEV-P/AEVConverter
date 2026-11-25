@@ -11,19 +11,24 @@ Programa para Windows o Linux para convertir archivos a distintos formatos y red
 
 ## Funcionalidades
 - Convertir multiples imagenes a un formato diferente.
+
 ![Ventana convertir imagenes](screenshots/VentanaConvertir.png)
 
 - Redimensionar imagenes manteniendo o no la relación de aspecto.
+
 ![Ventana redimensionar imagenes](screenshots/VentanaRedimensionar.png)
 
 ## Formatos soportados
-| Formato | Conversión | Redimensionar |
-|:-------:|:----------:|:-------------:|
-| PNG     | ✅         | ✅            |
-| JPG     | ✅         | ✅            |
-| JPEG    | ✅         | ✅            |
-| WEBP    | ✅         | ✅            |
-| ICO     | ✅         | ❌            |
+Imágenes soportadas para convertir y redimensionar:
+| Formato    | Conversión | Redimensionar |
+|:----------:|:----------:|:-------------:|
+| PNG        | ✅         | ✅            |
+| JPG / JPEG | ✅         | ✅            |
+| WEBP       | ✅         | ✅            |
+| TIFF / TIF | ✅         | ✅            |
+| ICO        | ✅         | ❌            |
+| BMP        | ✅         | ✅            |
+| TGA        | ✅         | ❌            |
 
 ## Tecnologías utilizadas
 - Java 25
