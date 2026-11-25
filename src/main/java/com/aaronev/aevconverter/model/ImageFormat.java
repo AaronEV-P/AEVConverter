@@ -9,7 +9,10 @@ public enum ImageFormat {
     PNG("png", new String[]{"*.png"}, "PNG"),
     JPG("jpg", new String[]{"*.jpg", "*.jpeg"}, "JPG / JPEG"),
     WEBP("webp", new String[]{"*.webp"}, "WEBP"),
-    ICO("ico", new String[]{"*.ico"}, "ICO");
+    TIFF("tif", new String[]{"*.tif", "*.tiff"}, "TIFF / TIF"),
+    ICO("ico", new String[]{"*.ico"}, "ICO"),
+    BMP("bmp", new String[]{"*.bmp"}, "BMP"),
+    TGA("tga", new String[]{"*.tga"}, "TGA");
 
     private final String extension;
     private final String[] filterPatterns;

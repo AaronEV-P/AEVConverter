@@ -97,6 +97,19 @@
             <artifactId>imageio-bmp</artifactId>
             <version>3.15.3</version>
         </dependency>
+        
+        <!-- Plugin TIFF reading and writing support for ImageIO -->
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-tiff</artifactId>
+            <version>3.15.0</version>
+        </dependency>
+        <!-- Plugin TGA reading and writing support for ImageIO -->
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-tga</artifactId>
+            <version>3.15.0</version>
+        </dependency>
     </dependencies>
     
     

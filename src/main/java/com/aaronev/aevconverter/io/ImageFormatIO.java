@@ -83,7 +83,7 @@ public final class ImageFormatIO {
         BufferedImage imageToWrite = image;
 
         try {
-            if (destinationFormat == ImageFormat.JPG && image.getColorModel().hasAlpha()) {
+            if (destinationFormat == ImageFormat.JPG || destinationFormat == ImageFormat.BMP && image.getColorModel().hasAlpha()) {
                 imageToWrite = createRgbImage(image);
             } else if (destinationFormat == ImageFormat.ICO) {
                 // The ICO-specific image preparation is centralized here for all callers.
